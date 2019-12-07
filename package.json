@@ -34,6 +34,7 @@
     "clipboard": "2.0.4",
     "core-js": "2.6.4",
     "express": "^4.17.1",
+    "json2typescript": "^1.2.3",
     "ngx-clipboard": "11.1.9",
     "ngx-toastr": "9.1.2",
     "node-sass": "^4.13.0",
