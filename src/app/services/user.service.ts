@@ -35,6 +35,9 @@ export class UserService {
     return this.http.post<any>(environment.API_BASE_URL + 'login', loginRequest, httpOptions)
       .pipe(
         map(response => {
+
+          console.log(response)
+
           const authContext = new AuthenticationContextModel();
           // @ts-ignore
           authContext.accessToken = response.headers.get('Authorization');

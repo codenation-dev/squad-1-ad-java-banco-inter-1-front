@@ -1,10 +1,12 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import { OperationMode } from 'json2typescript';
 
 export const environment = {
   production: false,
-  API_BASE_URL: 'http://542ffbdd.ngrok.io/api/v1/'
+  API_BASE_URL: 'http://3b17f010.ngrok.io/api/v1/',
+  JSON_CONVERT_OPERATION_MODE: OperationMode.ENABLE,
 };
 
 /*
