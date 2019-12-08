@@ -36,13 +36,9 @@ export class UserService {
       .pipe(
         map(response => {
 
-          console.log(response)
-
           const authContext = new AuthenticationContextModel();
           // @ts-ignore
-          authContext.accessToken = response.headers.get('Authorization');
-          // @ts-ignore
-          authContext.user = this.jsonConvert.deserializeObject(response.body, UserModel);
+          authContext.authorization = response.headers.get('authorization');
 
           return authContext;
         }),
@@ -55,7 +51,7 @@ export class UserService {
 
   create(form: FormData): Observable<UserModel> {
     return this.http
-      .post(`${environment.API_BASE_URL}user`, form, {observe: 'response'})
+      .post(`${environment.API_BASE_URL}users`, form, {observe: 'response'})
       .pipe(map(response => {
         return this.jsonConvert.deserializeObject(response.body, UserModel);
       }));

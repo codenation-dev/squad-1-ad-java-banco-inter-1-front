@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { AuthModel } from 'src/app/models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   
   auth = new AuthModel;
 
-  constructor(private userService: UserService) {}
+  redirectUrl = '/dashboard';
+
+  constructor(private userService: UserService,private router: Router) {}
 
   ngOnInit() {
   }
@@ -19,25 +22,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-
-    console.log(this.auth);
-    console.log(this.userService)
     this.userService.login(this.auth.email, this.auth.password)
       .subscribe(
         (response) => {
-          console.log(response)
-          // this.router.navigateByUrl(this.redirectUrl)
-          //   .catch(e => {
-          //     this.router.navigate(['']);
-            // });
+          this.router.navigateByUrl(this.redirectUrl)
+            .catch(e => {
+              this.router.navigate(['']);
+            });
         },
         error => {
-          const message = error.error.error;
+          const message = error
           // this.toastrService.error(message, 'Ops!', {
           //   timeOut: 3000
           // });
 
-          console.log(error.error.error);
+          console.log(error);
         }
       );
   }
