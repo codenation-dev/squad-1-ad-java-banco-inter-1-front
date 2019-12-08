@@ -15,12 +15,16 @@ import { ComponentsModule } from './components/components.module';
 import { JsonConvertProvider } from './providers';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { Interceptor } from './services/interceptors/interceptor.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 registerLocaleData(localePt, 'pt-BR');
 
 
 @NgModule({
   imports: [
+    Interceptor,
+    BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
