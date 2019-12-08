@@ -12,8 +12,8 @@ export class UserModel {
     token: string = undefined; 
     @JsonProperty('adress', String, true)
     adress: string = undefined; 
-    @JsonProperty('number', Number, true)
-    number: number = undefined; 
+    @JsonProperty('number', String, true)
+    number: string = undefined; 
     @JsonProperty('neighborhood', String, true)
     neighborhood: string = undefined; 
     @JsonProperty('city', String, true)
