@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { AuthModel } from 'src/app/models';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   
   auth = new AuthModel;
 
+  public nameApp: string = environment.NAME_APP;
   redirectUrl = '/dashboard';
 
   constructor(private userService: UserService,private router: Router) {}

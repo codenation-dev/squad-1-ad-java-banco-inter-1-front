@@ -22,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
 
-  private nameApp : string = environment.NAME_APP;
+  public nameApp : string = environment.NAME_APP;
   public menuItems: any[];
   public isCollapsed = true;
 
