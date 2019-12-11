@@ -4,9 +4,10 @@
 import { OperationMode } from 'json2typescript';
 
 export const environment = {
-  production: false,
-  API_BASE_URL: 'http://3b17f010.ngrok.io/api/v1/',
+  production: true,
+  API_BASE_URL: 'http://localhost:8080/api/v1/',
   JSON_CONVERT_OPERATION_MODE: OperationMode.ENABLE,
+  NAME_APP: 'Central de erros'
 };
 
 /*

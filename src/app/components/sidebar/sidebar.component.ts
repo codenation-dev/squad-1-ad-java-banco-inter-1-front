@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { environment } from '../../../environments/environment';
+ 
 declare interface RouteInfo {
     path: string;
     title: string;
@@ -21,6 +22,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
 
+  private nameApp : string = environment.NAME_APP;
   public menuItems: any[];
   public isCollapsed = true;
 
