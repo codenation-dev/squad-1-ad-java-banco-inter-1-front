@@ -11,6 +11,8 @@ import { LogError } from 'src/app/models';
 })
 export class DashboardComponent implements OnInit {
 
+  logsError: LogError[] = [];
+
   dashboard$: Observable<LogError[]>;
   
   constructor(private logErrorService: LogErrorService, private router: Router) {
@@ -22,7 +24,7 @@ export class DashboardComponent implements OnInit {
 
     this.dashboard$.subscribe(
       (response) => {
-
+        this.logsError = response;
         console.log(response)
 
       },
