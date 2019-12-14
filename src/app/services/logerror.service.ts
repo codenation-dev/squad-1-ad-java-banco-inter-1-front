@@ -40,7 +40,7 @@ export class LogErrorService {
       );
   }
 
-  listErrosPagination(): Observable<Content> {
+  listErrosPagination(page: number): Observable<Content> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ export class LogErrorService {
     let content = new Content;
 
     // @ts-ignore
-    return this.http.get<Content>(environment.API_BASE_URL + 'logerrors', httpOptions)
+    return this.http.get<Content>(environment.API_BASE_URL + 'logerrors?size=8&page='+page, httpOptions)
       .pipe(
         map(response => {
 

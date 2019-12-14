@@ -1,4 +1,4 @@
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-orange pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
       <!-- Card stats -->
@@ -65,14 +65,15 @@
         <div class="card-header border-0">
           <div class="row align-items-center">
             <div class="col">
-              <h3 class="mb-0">Painel de Erros</h3>
+              <h3 class="mb-0 text-light">Painel de Erros</h3>
             </div>
             <div class="col text-right">
-              <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                <h3 class="mb-0 text-light" >Total de registros: {{totalElements}}</h3>
+              <!-- <a href="#!" class="btn btn-sm btn-primary">See all</a> -->
             </div>
           </div>
         </div>
-        <form role="form" #form="ngForm">
+        <!-- <form role="form" #form="ngForm"> -->
         <div class="table-responsive">
           <!-- Projects table -->
           <table class="table align-items-center table-flush">
@@ -106,7 +107,67 @@
             </tbody>
           </table>
         </div>
-        </form>
+        <div class="card-footer py-4">
+          <nav aria-label="...">
+            
+              <!-- <span *ngFor="let extraService of room.extraServiceList.slice(0, 5)">
+                  <img src="{{extraService.icon}}" alt="{{extraService.title}}"/>{{extraService.title}}
+                </span><br> -->
+
+            <ul class="pagination justify-content-end mb-0">
+                
+              <li *ngIf="actualPage > 0" class="page-item active" (click)="previusPage()" active>
+                <a class="page-link" tabindex="-1">
+                  <i class="fas fa-angle-left"></i>
+                  <span class="sr-only">Anterior</span>
+                </a>
+              </li>
+              <li *ngIf="actualPage === 0" class="page-item" (click)="previusPage()" active>
+                  <a class="page-link" tabindex="-1">
+                    <i class="fas fa-angle-left"></i>
+                    <span class="sr-only">Anterior</span>
+                  </a>
+              </li>
+              <div *ngFor="let item of this.pagination; let i = index">
+                  <!-- <li *ngIf="isActualPage(i)" class="page-item active pagination-lg" (click)="getPage(i + 1)">
+                      <a class="page-link">{{ i + 1 }}</a>
+                      <span *ngIf="isActualPage(i+1)" class="sr-only">(current)</span>
+                  </li>
+                  <li *ngIf="!isActualPage(i)" class="page-item pagination-lg" (click)="getPage(i + 1)">
+                      <a class="page-link">{{ i + 1 }}</a>
+                      <span *ngIf="isActualPage(i+1)" class="sr-only">(current)</span>
+                  </li> -->
+                  <li class="page-item active" (click)="getPage(i + 1)">
+                      <a class="page-link">{{ actualPage + 1 }}</a>
+                      <span *ngIf="isActualPage(i+1)" class="sr-only">(current)</span>
+                  </li>
+              </div>
+              <!-- <li class="page-item active">
+                <a class="page-link" href="javascript:void(0)">1</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">2 
+                  <span class="sr-only">(current)</span></a>
+              </li> -->
+              
+              <li *ngIf="actualPage !== (totalPages-1)" class="page-item active" (click)="nextPage($event)">
+                <a class="page-link">
+                  <i class="fas fa-angle-right"></i>
+                  <span class="sr-only">Próximo</span>
+                </a>
+              </li>
+              <li *ngIf="actualPage === (totalPages-1)" class="page-item" (click)="nextPage()" > 
+                  <a class="page-link">
+                    <i class="fas fa-angle-right"></i>
+                    <span class="sr-only">Próximo</span>
+                  </a>
+              </li>
+
+              
+            </ul>
+          </nav>
+        </div>
+        <!-- </form> -->
       </div>
     </div>
     

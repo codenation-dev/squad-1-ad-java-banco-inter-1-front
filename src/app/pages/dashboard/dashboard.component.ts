@@ -18,6 +18,10 @@ export class DashboardComponent implements OnInit {
   countDev: number = 0;
   countHml: number = 0;
   countProd: number = 0;
+  actualPage: number = 0;
+  totalPages: number = 0;
+  totalElements: number = 0;
+  pagination: number[] = [];
 
   // dashboard$: Observable<LogError[]>;
   dashboard$: Observable<Content>;
@@ -26,9 +30,45 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getLogs();
+  }
 
+  ngOnDestroy(): void {
+    
+  }
+
+  getPage(page){
+    this.actualPage = page - 1;
+    this.getLogs();
+  }
+
+  isActualPage(page){
+    if(page === this.actualPage){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  nextPage(event: Event){
+    if(this.actualPage === (this.totalPages-1)){
+      return false;
+    }
+    this.actualPage = this.actualPage + 1;
+    this.getLogs();
+  }
+
+  previusPage(){
+    if(this.actualPage === 0){
+      return false;
+    }
+    this.actualPage = this.actualPage - 1;
+    this.getLogs();
+  }
+
+  getLogs(){
     // this.dashboard$ = this.logErrorService.listErros();
-    this.dashboard$ = this.logErrorService.listErrosPagination();
+    this.dashboard$ = this.logErrorService.listErrosPagination(this.actualPage);
 
     this.dashboard$.subscribe(
       (response) => {
@@ -44,7 +84,9 @@ export class DashboardComponent implements OnInit {
           }
         })
         console.log(response)
-
+        this.pagination = Array(1)//Array(response.totalPages);//Array(5)
+        this.totalPages = response.totalPages;
+        this.totalElements = response.totalElements;
       },
       error => {
 
@@ -52,9 +94,5 @@ export class DashboardComponent implements OnInit {
 
       }
     );  
-  }
-
-  ngOnDestroy(): void {
-    
   }
 }
