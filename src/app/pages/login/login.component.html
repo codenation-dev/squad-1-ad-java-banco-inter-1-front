@@ -49,6 +49,10 @@
             <div class="text-center">
               <button type="submit" class="btn btn-default my-4 btn-block"  [disabled]="!form.valid">Entrar</button>
             </div>
+            <div class="alert alert-danger" *ngIf="messageReturnApi">
+              <div> {{messageReturnApi}} </div>
+            </div>
+
           </form>
         </div>
       </div>
