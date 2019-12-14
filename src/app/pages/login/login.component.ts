@@ -12,6 +12,7 @@ import { environment } from '../../../environments/environment';
 export class LoginComponent implements OnInit, OnDestroy {
   
   auth = new AuthModel;
+  messageReturnApi: string = '';
 
   public nameApp: string = environment.NAME_APP;
   dashboardUrl = '/dashboard';
@@ -39,7 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           //   timeOut: 3000
           // });
 
-          console.log(error);
+          console.log(error.error.message);
+          this.messageReturnApi = error.error.message;
         }
       );
   }
@@ -48,7 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(this.registerUrl)
         .catch(e => {
           // this.router.navigate(['']);
-          console.log(e)
+          console.log(e);
     });
   }
 
