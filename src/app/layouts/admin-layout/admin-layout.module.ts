@@ -10,6 +10,7 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { ToastrModule } from 'ngx-toastr';
 import { AuthGuardService } from '../../guards/access.guard';
+import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { AuthGuardService } from '../../guards/access.guard';
   providers: [ AuthGuardService ],
   declarations: [
     DashboardComponent,
-    // UserProfileComponent,
+    UserProfileComponent,
     // TablesComponent,
   ]
 })
