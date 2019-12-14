@@ -19,6 +19,12 @@ export class UserService {
               private authenticationService: AuthenticationService) {
   }
 
+  async logout(){
+    if(this.authenticationService.hasActiveUser()){
+      await this.authenticationService.logout();
+    }
+  }
+
   login(username: string, password: string): Observable<AuthenticationContextModel> {
     const httpOptions = {
       headers: new HttpHeaders({
