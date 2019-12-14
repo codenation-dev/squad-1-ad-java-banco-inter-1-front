@@ -19,4 +19,8 @@ export class LogError{
     createdAt: string = undefined;
     @JsonProperty('users', UserModel, true)
     user: UserModel = undefined;
+
+    constructor(){
+
+    }
 }

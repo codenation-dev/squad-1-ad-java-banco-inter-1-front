@@ -14,7 +14,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   auth = new AuthModel;
 
   public nameApp: string = environment.NAME_APP;
-  redirectUrl = '/dashboard';
+  dashboardUrl = '/dashboard';
+  registerUrl = '/register';
 
   constructor(private userService: UserService,private router: Router) {}
 
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.userService.login(this.auth.email, this.auth.password)
       .subscribe(
         (response) => {
-          this.router.navigateByUrl(this.redirectUrl)
+          this.router.navigateByUrl(this.dashboardUrl)
             .catch(e => {
               this.router.navigate(['']);
             });
@@ -41,6 +42,14 @@ export class LoginComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       );
+  }
+
+  register(){
+    this.router.navigateByUrl(this.registerUrl)
+        .catch(e => {
+          // this.router.navigate(['']);
+          console.log(e)
+    });
   }
 
 }
