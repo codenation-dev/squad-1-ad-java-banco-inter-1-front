@@ -35,12 +35,13 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
         headers: req.headers.set('authorization', this.authenticationService.getAuthenticationContext().authorization),
       });
     } else {
-      this.router.navigateByUrl(this.redirectUrl)
-        .catch(e => {
-          this.router.navigate(['']);
-        });
+      // this.router.navigateByUrl(this.redirectUrl)
+      //   .catch(e => {
+      //     this.router.navigate(['']);
+      //   });
+      // console.log()
     }
-    console.log(req);
+    // console.log(req);
 
     return next.handle(req);
 

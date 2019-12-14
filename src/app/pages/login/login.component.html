@@ -12,7 +12,7 @@
     <div class="col-lg-5 col-md-7">
       <div class="card bg-secondary shadow border-0">
         <div class="card-header bg-transparent pb-3">
-          <div class="text-muted text-center mt-2 mb-3">{{nameApp}}</div>
+          <div class="text-center mt-2 mb-3 text-default">{{nameApp}}</div>
         </div>
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
@@ -32,23 +32,25 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Password" [(ngModel)]="auth.password" name="password" type="password">
+                <input class="form-control" placeholder="Senha" [(ngModel)]="auth.password" name="password" type="password">
               </div>
             </div>
             <div class="text-center">
-              <button type="submit" class="btn btn-primary my-4">Entrar</button>
+              <button type="submit" class="btn btn-default my-4 btn-block">Entrar</button>
             </div>
           </form>
         </div>
       </div>
-      <!-- <div class="row mt-3">
-        <div class="col-6">
-          <a href="javascript:void(0)" class="text-light"><small>Forgot password?</small></a>
+      <div class="row mt-3">
+        <!-- <div class="col-6">
+          <a href="javascript:void(0)" class="text-light"><small>Esqueceu sua senha?</small></a>
+        </div> -->
+        <div class="col-12  text-center"><!--text-right-->
+          <!-- <a href="javascript:void(0)" class="text-light"><small>Criar conta</small></a> -->
+          
+        <button (click)="register()" type="button" class="btn btn-link text-light font-weight-normal">Criar conta</button>
         </div>
-        <div class="col-6 text-right">
-          <a href="javascript:void(0)" class="text-light"><small>Create new account</small></a>
-        </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>

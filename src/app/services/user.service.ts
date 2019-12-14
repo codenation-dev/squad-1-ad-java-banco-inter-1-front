@@ -4,9 +4,10 @@ import { Observable } from 'rxjs';
 import { JsonConvert } from 'json2typescript';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { AuthenticationContextModel, UserModel } from '../models';
+import { AuthenticationContextModel, UserModel, AuthModel } from '../models';
 import { LoginRequest } from '../models/login.request';
 import { AuthenticationService } from '../authentication';
+import { RegisterRequest } from '../models/register.request';
 
 @Injectable({
   providedIn: 'root'
@@ -35,11 +36,12 @@ export class UserService {
     return this.http.post<any>(environment.API_BASE_URL + 'login', loginRequest, httpOptions)
       .pipe(
         map(response => {
-
+          // console.log(response)
           const authContext = new AuthenticationContextModel();
           // @ts-ignore
           authContext.authorization = response.headers.get('authorization');
-
+          // @ts-ignore
+          response.body = { token: authContext.authorization } 
           return authContext;
         }),
         tap(authContext => {
@@ -49,12 +51,29 @@ export class UserService {
       );
   }
 
-  create(form: FormData): Observable<UserModel> {
-    return this.http
-      .post(`${environment.API_BASE_URL}users`, form, {observe: 'response'})
-      .pipe(map(response => {
-        return this.jsonConvert.deserializeObject(response.body, UserModel);
-      }));
+  async create(user: UserModel){ //: Observable<UserModel> 
+    
+    const request = new RegisterRequest(user.name,user.email,user.password);
+
+    // return this.http
+    //   .post(`${environment.API_BASE_URL}users`, request, {observe: 'response'})
+    //   .pipe(map(response => {
+
+
+    //     return this.jsonConvert.deserializeObject(response.body, UserModel);
+    //   }));
+    try {
+
+      return await this.http.post(`${environment.API_BASE_URL}users`, request, {observe: 'response'}).toPromise();
+
+    } catch (error) {
+      
+      return null;
+
+    }
+
+    
+
   }
 
   // patch(form: FormData): Observable<UserModel> {

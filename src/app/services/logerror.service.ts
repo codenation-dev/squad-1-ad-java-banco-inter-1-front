@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { LogError } from '../models';
 import { AuthenticationService } from '../authentication';
+import { LogErrorRequest } from '../models/log.request';
 
 @Injectable({
   providedIn: 'root'
@@ -26,16 +27,24 @@ export class LogErrorService {
     };
 
     // @ts-ignore
-    return this.http.get<LogError[]>(environment.API_BASE_URL + 'logerror', httpOptions)
+    return this.http.get<LogError[]>(environment.API_BASE_URL + 'logerrors', httpOptions)
       .pipe(
         map(response => {
 
           console.log(response)
           // @ts-ignore
-          return this.jsonConvert.deserializeArray(response.body, LogError);
+          return this.jsonConvert.deserializeArray(response.body.content, LogError);
 
         })
       );
+  }
+
+  create(logerror: LogErrorRequest): Observable<LogError> {
+    return this.http
+      .post(`${environment.API_BASE_URL}logerrors`, logerror, {observe: 'response'})
+      .pipe(map(response => {
+        return this.jsonConvert.deserializeObject(response.body, LogError);
+      }));
   }
 
 }
