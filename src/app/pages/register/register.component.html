@@ -18,13 +18,18 @@
           <div class="text-center text-muted mb-4">
             <small>Informe os dados abaixo</small>
           </div>
-          <form role="form" #form="ngForm" (ngSubmit)="registerUser()">
-            <div class="form-group">
+          <form role="form" #form="ngForm" (ngSubmit)="form.form.valid && registerUser()">
+              <div class="form-group">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                 </div>
-                <input class="form-control" placeholder="Nome" [(ngModel)]="auth.name" name="name" type="text" required>
+                <input class="form-control" placeholder="Nome" [(ngModel)]="auth.name" name="name" type="text" required
+                  minlength="10" #name="ngModel">
+              </div>
+              <div class="alert alert-danger" *ngIf="name.errors && (name.dirty || name.touched || form.submitted)">
+                <div *ngIf="name.errors.required"> O preenchimento do nome é obrigatório </div>
+                <div *ngIf="name.errors.minlength"> O nome precisar ter no mínimo 10 caracteres </div>
               </div>
             </div>
             <div class="form-group">
@@ -32,7 +37,12 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                 </div>
-                <input class="form-control" placeholder="Email" [(ngModel)]="auth.email" name="email" type="email" required>
+                <input class="form-control" placeholder="Email" [(ngModel)]="auth.email" name="email" type="email"
+                  required minlength="10" #email="ngModel">
+              </div>
+              <div class="alert alert-danger" *ngIf="email.errors && (email.dirty || email.touched || form.submitted)">
+                <div *ngIf="email.errors.required"> O preenchimento do e-mail é obrigatório </div>
+                <div *ngIf="email.errors.minlength"> O e-mail precisar ter no mínimo 10 caracteres </div>
               </div>
             </div>
             <div class="form-group">
@@ -40,11 +50,17 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Senha" [(ngModel)]="auth.password" name="password" type="password" required>
+                <input class="form-control" placeholder="Senha" [(ngModel)]="auth.password" name="password"
+                  type="password" required minlength="3" #password="ngModel">
+              </div>
+              <div class="alert alert-danger" *ngIf="password.errors && (password.dirty || password.touched || form.submitted)">
+                <div *ngIf="password.errors.required"> O preenchimento da senha é obrigatório </div>
+                <div *ngIf="password.errors.minlength"> A senha precisar ter no mínimo 3 caracteres </div>
               </div>
             </div>
             <div *ngIf="userCreated" class="text-muted font-italic text-center">
-              <small><span class="text-success font-weight-700">Um e-mail de confirmação foi enviado para você</span></small>
+              <small><span class="text-success font-weight-700">Um e-mail de confirmação foi enviado para
+                  você</span></small>
             </div>
             <div *ngIf="userCreateFail" class="text-muted font-italic text-center">
               <small><span class="text-danger font-weight-700">Falha ao cadastrar usuário!</span></small>
@@ -58,14 +74,15 @@
               </div>
             </div> -->
             <div class="text-center">
-              <button type="submit" class="btn btn-block btn-default mt-4">Criar conta</button>
+              <button type="submit" class="btn btn-block btn-default mt-4"  [disabled]="!form.valid">Criar conta</button>
             </div>
           </form>
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-12  text-center"><!--text-right-->          
-        <button routerLink="../" type="button" class="btn btn-link text-light font-weight-normal">Voltar</button>
+        <div class="col-12  text-center">
+          <!--text-right-->
+          <button routerLink="../" type="button" class="btn btn-link text-light font-weight-normal">Voltar</button>
         </div>
       </div>
     </div>
