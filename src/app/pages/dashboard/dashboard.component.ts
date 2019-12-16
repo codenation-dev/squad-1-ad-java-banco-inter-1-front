@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LogErrorService } from 'src/app/services/logerror.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LogError } from 'src/app/models';
+import { LogError, DashBoardItem } from 'src/app/models';
 import { Content } from 'src/app/models/content-request';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,8 +23,11 @@ export class DashboardComponent implements OnInit {
   totalElements: number = 0;
   pagination: number[] = [];
 
+  last: boolean = false;
+
   // dashboard$: Observable<LogError[]>;
   dashboard$: Observable<Content>;
+  dashboardItem$: Observable<DashBoardItem[]>;
   
   constructor(private logErrorService: LogErrorService, private router: Router) {
   }
@@ -40,6 +43,7 @@ export class DashboardComponent implements OnInit {
   getPage(page){
     this.actualPage = page - 1;
     this.getLogs();
+    
   }
 
   isActualPage(page){
@@ -74,25 +78,46 @@ export class DashboardComponent implements OnInit {
       (response) => {
         this.logsError = response.content;
 
-        this.logsError.map(item => {
-          if(item.environment === 'DEV'){
-            this.countDev = this.countDev + 1;
-          }else if(item.environment === 'HML'){
-            this.countHml = this.countHml + 1  ;
-          }else if(item.environment === 'PROD'){
-            this.countProd = this.countProd + 1;
-          }
-        })
-        console.log(response)
         this.pagination = Array(1)//Array(response.totalPages);//Array(5)
         this.totalPages = response.totalPages;
         this.totalElements = response.totalElements;
+        this.last = response.last || false;
+      },
+      error => {
+
+        if(error.status === 403 || error.status === 401){
+          this.router.navigateByUrl('/login')
+            .catch(e => {
+              this.router.navigate(['']);
+            });
+        }
+        console.log(error);
+
+      }
+    ); 
+    
+    this.dashboardItem$ = this.logErrorService.getDashboard();
+    this.dashboardItem$.subscribe(
+      (response) => {
+
+        response.map((item)=>{
+          if(item.environment === 'DEV'){
+            this.countDev = item.count;
+          }else if(item.environment === 'HML'){
+            this.countHml = item.count  ;
+          }else if(item.environment === 'PROD'){
+            this.countProd = item.count;
+          }
+        })
+
       },
       error => {
 
         console.log(error);
 
       }
-    );  
+    ); 
+    
   }
+  
 }

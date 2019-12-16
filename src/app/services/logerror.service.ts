@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { JsonConvert } from 'json2typescript';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { LogError } from '../models';
+import { LogError, DashBoardItem } from '../models';
 import { AuthenticationService } from '../authentication';
 import { LogErrorRequest } from '../models/log.request';
 import { Content } from '../models/content-request';
@@ -40,6 +40,49 @@ export class LogErrorService {
       );
   }
 
+
+  getDashboard(): Observable<DashBoardItem[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      observe: 'response'
+    };
+
+    // @ts-ignore
+    return this.http.get<DashBoardItem[]>(environment.API_BASE_URL + 'logerrors/count', httpOptions)
+      .pipe(
+        map(response => {
+
+          console.log(response)
+          // @ts-ignore
+          return this.jsonConvert.deserializeArray(response.body, DashBoardItem);
+
+        })
+      );
+  }
+
+  // async getDashboard(){
+  //     const httpOptions = {
+  //       headers: new HttpHeaders({
+  //         'Content-Type': 'application/json'
+  //       }),
+  //       observe: 'response'
+  //     };
+  
+  //     // @ts-ignore
+  //      return await this.http.get<DashBoardItem[]>(environment.API_BASE_URL + 'logerrors/count', httpOptions)
+  //       .pipe(
+  //         map(response => {
+  
+  //           console.log(response)
+  //           // @ts-ignore
+  //           // return this.jsonConvert.deserializeArray(response.body.content, LogError);
+  
+  //         })
+  //       ).toPromise();
+  // }
+
   listErrosPagination(page: number): Observable<Content> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -70,6 +113,8 @@ export class LogErrorService {
           content.first = response.body.first;
           // @ts-ignore
           content.empty = response.body.empty;
+          // @ts-ignore
+          content.last = response.body.last;
           // @ts-ignore
           const logs = this.jsonConvert.deserializeArray(response.body.content, LogError);
           content.content = logs;
