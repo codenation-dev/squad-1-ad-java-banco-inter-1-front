@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { ToastrModule } from 'ngx-toastr';
 import { AuthGuardService } from '../../guards/access.guard';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
+import { ModalComponent } from 'src/app/modal/modal.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
   declarations: [
     DashboardComponent,
     UserProfileComponent,
+    ModalComponent
     // TablesComponent,
   ]
 })
