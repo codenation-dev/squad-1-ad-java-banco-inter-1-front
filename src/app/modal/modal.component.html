@@ -1,13 +1,17 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h2 class="modal-title">{{summary}}</h2>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <h2 class="modal-title">{{title}}</h2>
+   
   </div>
   <div class="modal-body">
-    <label for="dateOfBirth">Título</label>
-    <p>{{title}}</p>
+    <label for="dateOfBirth">Ambiente</label>
+    <p>{{environmentLog}}</p>
+
+    <label for="dateOfBirth">IP</label>
+    <p>{{ipLog}}</p>
+
+    <label for="dateOfBirth">Data</label>
+    <p>{{dateLog}}</p>
 
     <label for="dateOfBirth">Detalhes</label>
     <p>{{details}}</p>
