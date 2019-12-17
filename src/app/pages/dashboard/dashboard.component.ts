@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LogError, DashBoardItem } from 'src/app/models';
 import { Content } from 'src/app/models/content-request';
-import { UserService } from 'src/app/services/user.service';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -68,6 +66,14 @@ export class DashboardComponent implements OnInit {
     }
     this.actualPage = this.actualPage - 1;
     this.getLogs();
+  }
+
+  getLevelClass(level){
+    const map = new Map<string, string>();
+    map.set('ERROR', 'bg-red');
+    map.set('WARNING', 'bg-yellow');
+    map.set('DEBUG', 'bg-primary');
+    return map.get(level);
   }
 
   getLogs(){

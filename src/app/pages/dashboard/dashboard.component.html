@@ -93,7 +93,10 @@
                   {{logError.environment}}
                 </th>
                 <td>
-                  {{logError.level}}
+                  <span class="badge badge-dot mr-4">
+                    <i [ngClass]="getLevelClass(logError.level)"></i>
+                    {{logError.level}}
+                  </span>
                 </td>
                 <td>
                   {{logError.title}}
@@ -102,7 +105,7 @@
                   {{logError.createdAt | date:'dd/MM/yyyy HH:mm:ss'}}
                 </td>
                 <td>
-                  <i class="fas fa-arrow-up text-success mr-3"></i> {{logError.requestIp}}
+                  {{logError.requestIp}}
                 </td>
                 <td>
                   <app-modal [summary]="logError.level + '  ' + logError.requestIp + '  ' +  logError.createdAt" [title]="logError.title" [details]="logError.details"  (respSummary)="reciverFeedback($event)"></app-modal>
