@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  nextPage(event: Event){
+  nextPage(){
     if(this.actualPage === (this.totalPages-1)){
       return false;
     }
