@@ -7,11 +7,18 @@
     </button>
     <!-- Brand -->
     <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/dashboard']">
-     
-        <img class="img-fluid " alt="Image logo" src="./assets/img/logo/logo4.png">
-        <h3>{{nameApp}}</h3>   
-        <hr>
+      <img class="img-fluid " alt="Image logo" src="./assets/img/logo/logoError03.png">
     </a>
+    <div class="dropdown-divider"></div>
+                  <!-- Navigation -->
+          <ul class="navbar-nav">
+            <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+                <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
+                    <i class="ni {{menuItem.icon}}"></i>
+                    {{menuItem.title}}
+                </a>
+            </li>
+        </ul>
     <!-- User -->
     <ul class="nav align-items-center d-md-none">
       
@@ -68,15 +75,7 @@
           </div>
         </div>
       </form>
-      <!-- Navigation -->
-      <ul class="navbar-nav">
-          <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-              <a routerLinkActive="active" [routerLink]="[menuItem.path]" class="nav-link">
-                  <i class="ni {{menuItem.icon}}"></i>
-                  {{menuItem.title}}
-              </a>
-          </li>
-      </ul>
+
 
     <!-- Divider -->
     <!-- <hr class="my-3"> -->

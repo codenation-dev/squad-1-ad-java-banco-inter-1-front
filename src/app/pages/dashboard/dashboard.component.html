@@ -84,6 +84,7 @@
                 <th scope="col">Titulo</th>
                 <th scope="col">Criado</th>
                 <th scope="col">Ip</th>
+                <th scope="col">Info</th>
               </tr>
             </thead>
             <tbody>
@@ -102,6 +103,9 @@
                 </td>
                 <td>
                   <i class="fas fa-arrow-up text-success mr-3"></i> {{logError.requestIp}}
+                </td>
+                <td>
+                  <app-modal [summary]="logError.level + '  ' + logError.requestIp + '  ' +  logError.createdAt" [title]="logError.title" [details]="logError.details"  (respSummary)="reciverFeedback($event)"></app-modal>
                 </td>
               </tr>
             </tbody>
