@@ -108,7 +108,14 @@
                   {{logError.requestIp}}
                 </td>
                 <td>
-                  <app-modal [summary]="logError.level + '  ' + logError.requestIp + '  ' +  logError.createdAt" [title]="logError.title" [details]="logError.details"  (respSummary)="reciverFeedback($event)"></app-modal>
+                  <app-modal 
+                    [environmentLog]="logError.environment"
+                    [ipLog]="logError.requestIp"
+                    [dateLog]="logError.createdAt"
+                    [title]="logError.title"
+                    [details]="logError.details"  
+                    (respSummary)="reciverFeedback($event)">
+                  </app-modal>
                 </td>
               </tr>
             </tbody>

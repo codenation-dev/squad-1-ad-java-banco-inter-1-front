@@ -12,6 +12,9 @@ export class ModalComponent implements OnInit {
   @Input() public summary: string;
   @Input() public title: string;
   @Input() public details: string;
+  @Input() public dateLog: string;
+  @Input() public ipLog: string;
+  @Input() public environmentLog: string;
   
   @Output() respSummary = new EventEmitter();
 
