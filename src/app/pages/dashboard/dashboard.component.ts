@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LogError, DashBoardItem } from 'src/app/models';
 import { Content } from 'src/app/models/content-request';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,18 +21,28 @@ export class DashboardComponent implements OnInit {
   totalPages: number = 0;
   totalElements: number = 0;
   pagination: number[] = [];
+  localfilter: String = '';
 
   last: boolean = false;
 
   // dashboard$: Observable<LogError[]>;
   dashboard$: Observable<Content>;
   dashboardItem$: Observable<DashBoardItem[]>;
-  
-  constructor(private logErrorService: LogErrorService, private router: Router) {
+
+  constructor(private logErrorService: LogErrorService, private router: Router, private searcService: SearchService) {
   }
+
+  
 
   ngOnInit() {
     this.getLogs();
+
+    this.searcService.filter.subscribe(filter => {
+      this.localfilter = filter
+      this.actualPage = 0;
+      this.getLogs();
+    })
+
   }
 
   ngOnDestroy(): void {
@@ -77,9 +88,15 @@ export class DashboardComponent implements OnInit {
   }
 
   getLogs(){
-    // this.dashboard$ = this.logErrorService.listErros();
-    this.dashboard$ = this.logErrorService.listErrosPagination(this.actualPage);
+    if(this.localfilter.trim().length > 0){
+      this.dashboard$ = this.logErrorService.listErrosByFilter(this.actualPage, this.localfilter);
+    }else{
+      this.dashboard$ = this.logErrorService.listErrosPagination(this.actualPage);
+    }
+    this.populateGrid();
+  }
 
+  populateGrid(){
     this.dashboard$.subscribe(
       (response) => {
         this.logsError = response.content;
