@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   public listTitles: any[];
   public location: Location;
   private login: string = '/login'
-  private user: UserModel;
+  user: UserModel;
 
   constructor(location: Location,  
     private element: ElementRef, 
