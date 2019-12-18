@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { LogErrorService } from 'src/app/services/logerror.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LogError, DashBoardItem } from 'src/app/models';
+import { LogError, DashBoardItem, UserModel } from 'src/app/models';
 import { Content } from 'src/app/models/content-request';
 import { SearchService } from 'src/app/services/search.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,21 +23,19 @@ export class DashboardComponent implements OnInit {
   totalElements: number = 0;
   pagination: number[] = [];
   localfilter: String = '';
-
+ 
   last: boolean = false;
 
   // dashboard$: Observable<LogError[]>;
   dashboard$: Observable<Content>;
   dashboardItem$: Observable<DashBoardItem[]>;
+  // 
 
-  constructor(private logErrorService: LogErrorService, private router: Router, private searcService: SearchService) {
+  constructor(private logErrorService: LogErrorService, private router: Router, private searcService: SearchService, private userService: UserService) {
   }
 
-  
-
   ngOnInit() {
-    this.getLogs();
-
+    this.getLogs();    
     this.searcService.filter.subscribe(filter => {
       this.localfilter = filter
       this.actualPage = 0;
@@ -81,9 +80,9 @@ export class DashboardComponent implements OnInit {
 
   getLevelClass(level){
     const map = new Map<string, string>();
-    map.set('ERROR', 'bg-red');
-    map.set('WARNING', 'bg-yellow');
-    map.set('DEBUG', 'bg-primary');
+    map.set('ERROR', 'badge-danger');
+    map.set('WARNING', 'badge-primary');
+    map.set('DEBUG', 'badge-info');
     return map.get(level);
   }
 

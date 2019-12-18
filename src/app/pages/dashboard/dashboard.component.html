@@ -12,8 +12,8 @@
                   <span class="h2 font-weight-bold mb-0">{{countProd}}</span><br>
                 </div>
                 <div class="col-auto">
-                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                    <i class="fas fa-chart-bar"></i>
+                  <div class="icon icon-shape bg-primary text-white rounded-circle shadow">
+                    <i class="ni ni-spaceship"></i>
                   </div>
                 </div>
               </div>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                    <i class="fas fa-chart-pie"></i>
+                    <i class="ni ni-box-2"></i>
                   </div>
                 </div>
               </div>
@@ -46,8 +46,8 @@
                   <span class="h2 font-weight-bold mb-0">{{countDev}}</span>
                 </div>
                 <div class="col-auto">
-                  <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                    <i class="fas fa-users"></i>
+                  <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                    <i class="ni ni-settings-gear-65"></i>
                   </div>
                 </div>
               </div>
@@ -93,10 +93,9 @@
                   {{logError.environment}}
                 </th>
                 <td>
-                  <span class="badge badge-dot mr-4">
-                    <i [ngClass]="getLevelClass(logError.level)"></i>
+                  <a href="#" class="badge badge-pill" [ngClass]="getLevelClass(logError.level)">
                     {{logError.level}}
-                  </span>
+                  </a>
                 </td>
                 <td>
                   {{logError.title}}

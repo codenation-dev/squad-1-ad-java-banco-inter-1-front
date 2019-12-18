@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { SearchService } from 'src/app/services/search.service';
+import { UserModel } from 'src/app/models';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ export class NavbarComponent implements OnInit {
   public listTitles: any[];
   public location: Location;
   private login: string = '/login'
+  private user: UserModel;
 
   constructor(location: Location,  
     private element: ElementRef, 
@@ -25,6 +27,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.getUser().subscribe(user => {
+      this.user = user;
+    });
     this.listTitles = ROUTES.filter(listTitle => listTitle);
   }
   getTitle(){

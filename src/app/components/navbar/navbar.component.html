@@ -22,16 +22,16 @@
               <i class="ni ni-lg ni-single-02 text-yellow"></i>
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">Daniel Pimentel</span>
+              <span class="mb-0 text-sm  font-weight-bold">{{user.name}}</span>
             </div>
           </div>
         </a>
         <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
-          <!-- <div class=" dropdown-header noti-title">
-            <h6 class="text-overflow m-0">Welcome!</h6>
-          </div> -->
+          <div class="dropdown-item text-center">
+            <h6 class="text-overflow m-0">{{user.email}}</h6>
+          </div>
           
-          
+          <hr class="text-overflow m-0">
           
           <a href="#!" class="dropdown-item" (click)="logout()">
             <i class="ni ni-user-run"></i>

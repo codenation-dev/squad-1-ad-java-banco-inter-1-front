@@ -25,6 +25,27 @@ export class UserService {
     }
   }
 
+  getUser(): Observable<UserModel> {
+
+    const authContext = this.authenticationService.getAuthenticationContext();
+
+    if (!authContext) {
+      return null;
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+        // 'access-token': authContext.authorization
+      }),
+    };
+
+    return this.http.get<any>(`${environment.API_BASE_URL}usersinfos`, httpOptions)
+      .pipe(
+        map(response => this.jsonConvert.deserializeObject(response, UserModel))
+      );
+  }
+
   login(username: string, password: string): Observable<AuthenticationContextModel> {
     const httpOptions = {
       headers: new HttpHeaders({
