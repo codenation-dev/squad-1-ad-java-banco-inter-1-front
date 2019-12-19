@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MockService } from 'src/app/services/mock.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private mockService: MockService) { }
 
   ngOnInit() {
+    
+  }
+
+  generateLogs(){
+    console.log('Gerando 50 eventos')
+    this.mockService.generateLogs(50, true);
   }
 
 }
+
+

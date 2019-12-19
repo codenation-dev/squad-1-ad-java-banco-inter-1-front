@@ -1,5 +1,5 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -12,10 +12,21 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
+import { JsonConvertProvider } from './providers';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+import { Interceptor } from './services/interceptors/interceptor.module';
+import { BrowserModule } from '@angular/platform-browser';
+// import { NgSpinnerModule } from 'ng-bootstrap-spinner';
+
+registerLocaleData(localePt, 'pt-BR');
 
 
 @NgModule({
   imports: [
+    Interceptor,
+    BrowserModule,
+    // NgSpinnerModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
@@ -29,7 +40,13 @@ import { ComponentsModule } from './components/components.module';
     AdminLayoutComponent,
     AuthLayoutComponent
   ],
-  providers: [],
+  providers: [
+    JsonConvertProvider,
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt-BR'
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
