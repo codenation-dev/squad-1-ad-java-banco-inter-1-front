@@ -22,13 +22,13 @@
               <i class="ni ni-lg ni-single-02 text-yellow"></i>
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm  font-weight-bold">{{user.name}}</span>
+              <span class="mb-0 text-sm  font-weight-bold">{{user && user.name}}</span>
             </div>
           </div>
         </a>
         <div class="dropdown-menu-arrow dropdown-menu-right" ngbDropdownMenu>
           <div class="dropdown-item text-center">
-            <h6 class="text-overflow m-0">{{user.email}}</h6>
+            <h6 class="text-overflow m-0">{{user && user.email}}</h6>
           </div>
           
           <hr class="text-overflow m-0">

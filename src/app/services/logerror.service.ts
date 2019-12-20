@@ -31,8 +31,6 @@ export class LogErrorService {
     return this.http.get<LogError[]>(environment.API_BASE_URL + 'logerrors', httpOptions)
       .pipe(
         map(response => {
-
-          console.log(response)
           // @ts-ignore
           return this.jsonConvert.deserializeArray(response.body.content, LogError);
 
@@ -53,35 +51,12 @@ export class LogErrorService {
     return this.http.get<DashBoardItem[]>(environment.API_BASE_URL + 'logerrors/count', httpOptions)
       .pipe(
         map(response => {
-
-          console.log(response)
           // @ts-ignore
           return this.jsonConvert.deserializeArray(response.body, DashBoardItem);
 
         })
       );
   }
-
-  // async getDashboard(){
-  //     const httpOptions = {
-  //       headers: new HttpHeaders({
-  //         'Content-Type': 'application/json'
-  //       }),
-  //       observe: 'response'
-  //     };
-  
-  //     // @ts-ignore
-  //      return await this.http.get<DashBoardItem[]>(environment.API_BASE_URL + 'logerrors/count', httpOptions)
-  //       .pipe(
-  //         map(response => {
-  
-  //           console.log(response)
-  //           // @ts-ignore
-  //           // return this.jsonConvert.deserializeArray(response.body.content, LogError);
-  
-  //         })
-  //       ).toPromise();
-  // }
 
   listErrosPagination(page: number): Observable<Content> {
     const httpOptions = {
@@ -97,8 +72,6 @@ export class LogErrorService {
     return this.http.get<Content>(environment.API_BASE_URL + 'logerrors?size=8&page='+page, httpOptions)
       .pipe(
         map(response => {
-
-          console.log(response)
           // @ts-ignore
           content.totalElements = response.body.totalElements;
           // @ts-ignore
@@ -141,8 +114,6 @@ export class LogErrorService {
     return this.http.get<Content>(environment.API_BASE_URL + 'logerrors?size=8&page='+page+'&filter='+filter, httpOptions)
       .pipe(
         map(response => {
-
-          console.log(response)
           // @ts-ignore
           content.totalElements = response.body.totalElements;
           // @ts-ignore
