@@ -1,14 +1,4 @@
-<div class="header bg-gradient-danger py-7 py-lg-8">
-  <div class="container">
-    <div class="header-body text-center mb-7">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-6">
-          <h1 class="text-white">Welcome!</h1>
-          <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="header bg-gradient-orange py-7 py-lg-8">
   <div class="separator separator-bottom separator-skew zindex-100">
     <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
       <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
@@ -19,32 +9,27 @@
 <div class="container mt--8 pb-5">
   <!-- Table -->
   <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8">
+    <div class="col-lg-5 col-md-7">
       <div class="card bg-secondary shadow border-0">
-        <div class="card-header bg-transparent pb-5">
-          <div class="text-muted text-center mt-2 mb-4"><small>Sign up with</small></div>
-          <div class="text-center">
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon mr-4">
-              <span class="btn-inner--icon"><img src="assets/img/icons/common/github.svg"></span>
-              <span class="btn-inner--text">Github</span>
-            </a>
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"><img src="assets/img/icons/common/google.svg"></span>
-              <span class="btn-inner--text">Google</span>
-            </a>
-          </div>
+        <div class="card-header bg-transparent pb-3">
+          <div class="text-center mt-2 mb-3 text-default">{{nameApp}}</div>
         </div>
         <div class="card-body px-lg-5 py-lg-5">
           <div class="text-center text-muted mb-4">
-            <small>Or sign up with credentials</small>
+            <small>Informe os dados abaixo</small>
           </div>
-          <form role="form">
-            <div class="form-group">
+          <form role="form" #form="ngForm" (ngSubmit)="form.form.valid && registerUser()">
+              <div class="form-group">
               <div class="input-group input-group-alternative mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                 </div>
-                <input class="form-control" placeholder="Name" type="text">
+                <input class="form-control" placeholder="Nome" [(ngModel)]="auth.name" name="name" type="text" required
+                  minlength="10" #name="ngModel">
+              </div>
+              <div class="alert alert-danger" *ngIf="name.errors && (name.dirty || name.touched || form.submitted)">
+                <div *ngIf="name.errors.required"> O preenchimento do nome é obrigatório </div>
+                <div *ngIf="name.errors.minlength"> O nome precisar ter no mínimo 10 caracteres </div>
               </div>
             </div>
             <div class="form-group">
@@ -52,7 +37,13 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                 </div>
-                <input class="form-control" placeholder="Email" type="email">
+                <input class="form-control" placeholder="Email" [(ngModel)]="auth.email" name="email" type="email"
+                  required email minlength="10" #email="ngModel">
+              </div>
+              <div class="alert alert-danger" *ngIf="email.errors && (email.dirty || email.touched || form.submitted)">
+                <div *ngIf="email.errors.required"> O preenchimento do e-mail é obrigatório! </div>
+                <div *ngIf="email.errors.minlength"> O e-mail precisar ter no mínimo 10 caracteres! </div>
+                <div *ngIf="email.errors.email"> O e-mail precisar ser válido! </div>
               </div>
             </div>
             <div class="form-group">
@@ -60,24 +51,39 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                <input class="form-control" placeholder="Password" type="password">
+                <input class="form-control" placeholder="Senha" [(ngModel)]="auth.password" name="password"
+                  type="password" required minlength="3" #password="ngModel">
+              </div>
+              <div class="alert alert-danger" *ngIf="password.errors && (password.dirty || password.touched || form.submitted)">
+                <div *ngIf="password.errors.required"> O preenchimento da senha é obrigatório! </div>
+                <div *ngIf="password.errors.minlength"> A senha precisar ter no mínimo 3 caracteres! </div>
               </div>
             </div>
-            <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div>
-            <div class="row my-4">
+            <div *ngIf="userCreated" class="text-muted font-italic text-center">
+              <small><span class="text-success font-weight-700">Um e-mail de confirmação foi enviado para
+                  você</span></small>
+            </div>
+            <div *ngIf="userCreateFail" class="text-muted font-italic text-center">
+              <small><span class="text-danger font-weight-700">Falha ao cadastrar usuário!</span></small>
+            </div>
+            <div *ngIf="userRequest" class="text-muted font-italic text-center">
+              <small><span class="text-default font-weight-700">Aguarde...</span></small>
+            </div>
+            <!-- <div class="row my-4">
               <div class="col-12">
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id="customCheckRegister" type="checkbox">
-                  <label class="custom-control-label" for="customCheckRegister">
-                    <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
-                  </label>
-                </div>
+               
               </div>
-            </div>
+            </div> -->
             <div class="text-center">
-              <button type="button" class="btn btn-primary mt-4">Create account</button>
+              <button type="submit" class="btn btn-block btn-default mt-4"  [disabled]="!form.valid">Criar conta</button>
             </div>
           </form>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12  text-center">
+          <!--text-right-->
+          <button routerLink="../" type="button" class="btn btn-link text-light font-weight-normal">Voltar</button>
         </div>
       </div>
     </div>

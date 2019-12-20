@@ -1,0 +1,24 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title">{{title}}</h2>
+   
+  </div>
+  <div class="modal-body">
+    <label for="dateOfBirth">Ambiente</label>
+    <p>{{environmentLog}}</p>
+
+    <label for="dateOfBirth">IP</label>
+    <p>{{ipLog}}</p>
+
+    <label for="dateOfBirth">Data</label>
+    <p>{{dateLog}}</p>
+
+    <label for="dateOfBirth">Detalhes</label>
+    <p>{{details}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Closed click')">Fechar</button>
+  </div>
+</ng-template>
+
+<button class="btn btn-sm btn-outline-primary" (click)="openLg(content)">Visualizar</button>
