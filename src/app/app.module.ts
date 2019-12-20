@@ -17,7 +17,6 @@ import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { Interceptor } from './services/interceptors/interceptor.module';
 import { BrowserModule } from '@angular/platform-browser';
-// import { NgSpinnerModule } from 'ng-bootstrap-spinner';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -26,7 +25,6 @@ registerLocaleData(localePt, 'pt-BR');
   imports: [
     Interceptor,
     BrowserModule,
-    // NgSpinnerModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,

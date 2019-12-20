@@ -42,8 +42,6 @@ export class AuthenticationService {
     }
 
     localStorage.setItem(KEY_AUTH_CONTEXT, JSON.stringify(authenticationContext));
-
-    // this.emitUserValue(authenticationContext);
   }
 
   private removeAuthenticationContext() {
@@ -52,11 +50,6 @@ export class AuthenticationService {
     }
 
     localStorage.removeItem(KEY_AUTH_CONTEXT);
-
-    // this.emitUserValue(null);
   }
 
-  // private emitUserValue(value: AuthenticationContextModel) {
-  //   this.authenticationContextSubject.next(value);
-  // }
 }

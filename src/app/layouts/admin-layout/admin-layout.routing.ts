@@ -16,5 +16,4 @@ export const AdminLayoutRoutes: Routes = [
         component: UserProfileComponent,
         canActivate: [AuthGuardService]
      },
-    // { path: 'tables',         component: TablesComponent },
 ];

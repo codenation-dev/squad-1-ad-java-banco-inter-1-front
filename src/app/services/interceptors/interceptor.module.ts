@@ -18,8 +18,6 @@ import { Router } from '@angular/router';
 
 export class HttpsRequestInterceptor implements HttpInterceptor {
 
-  private redirectUrl = '/login';
-
   constructor(private authenticationService: AuthenticationService, private router: Router) {
 
   }
@@ -34,52 +32,10 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
       req = req.clone({
         headers: req.headers.set('authorization', this.authenticationService.getAuthenticationContext().authorization),
       });
-    } else {
-      // this.router.navigateByUrl(this.redirectUrl)
-      //   .catch(e => {
-      //     this.router.navigate(['']);
-      //   });
-      // console.log()
-    }
-    // console.log(req);
+    } 
 
     return next.handle(req);
 
-    // return next.handle(req).pipe(
-    //   tap(evt => {}),
-    //   catchError((error: HttpErrorResponse) => {
-    //     // if(event instanceof HttpErrorResponse) {
-    //     //   console.log(event)
-    //     // }
-    //     // if (error.status !== 401) {
-    //       // 401 handled in auth.interceptor
-    //       console.log(error)  
-    //     // }
-    //     return error
-    //     // return throwError(error);
-    //   })
-    // );
-
-    // catchError((error: HttpErrorResponse) => {
-    //   if (error.status !== 401) {
-    //     // 401 handled in auth.interceptor
-    //     this.toastr.error(error.message);      
-    //   }
-    //   return throwError(error);
-    // })
-
-    // return next.handle(req).pipe(
-    //   // There may be other events besides the response.
-    //   filter(event => event instanceof HttpResponse),
-    //   tap((event: HttpResponse<any>) => {
-    //     console.log(event)
-    //     // cache.set(req.urlWithParams, {
-    //     //   key: req.urlWithParams,
-    //     //   body: event.body,
-    //     //   dateAdded: Date.now(),
-    //     // });
-    //   })
-    // );
   }
 
 }

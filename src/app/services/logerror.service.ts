@@ -108,8 +108,6 @@ export class LogErrorService {
 
     let content = new Content;
 
-    // const query = 'size=8&page='+page+`?filter=${filter}` ? '';
-
     // @ts-ignore logerrors?
     return this.http.get<Content>(environment.API_BASE_URL + 'logerrors?size=8&page='+page+'&filter='+filter, httpOptions)
       .pipe(
