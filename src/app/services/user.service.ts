@@ -63,7 +63,6 @@ export class UserService {
     return this.http.post<any>(environment.API_BASE_URL + 'login', loginRequest, httpOptions)
       .pipe(
         map(response => {
-          // console.log(response)
           const authContext = new AuthenticationContextModel();
           // @ts-ignore
           authContext.authorization = response.headers.get('authorization');
@@ -99,73 +98,6 @@ export class UserService {
 
     }
 
-    
-
   }
-
-  // patch(form: FormData): Observable<UserModel> {
-
-  //   const authContext = this.authenticationService.getAuthenticationContext();
-
-  //   if (!authContext) {
-  //     return null;
-  //   }
-
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       client: authContext.client,
-  //       uid: authContext.uid,
-  //       'access-token': authContext.accessToken
-  //     }),
-  //     observe: 'response'
-  //   };
-
-  //   // @ts-ignore
-  //   return this.http.patch<any>(environment.API_BASE_URL + 'user', form, httpOptions)
-  //     .pipe(map(response => {
-  //       return this.jsonConvert.deserializeObject(response, UserModel);
-  //     }));
-  // }
-
-  // details(): Observable<UserModel> {
-
-  //   const authContext = this.authenticationService.getAuthenticationContext();
-
-  //   if (!authContext) {
-  //     return null;
-  //   }
-
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //       client: authContext.client,
-  //       uid: authContext.uid,
-  //       'access-token': authContext.accessToken
-  //     }),
-  //   };
-
-  //   return this.http.get<any>(`${environment.API_BASE_URL}user`, httpOptions)
-  //     .pipe(
-  //       map(response => this.jsonConvert.deserializeObject(response, UserModel))
-  //     );
-  // }
-
-  // recoveryPassword(email: string): Observable<UserPasswordRecovery> {
-
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //     }),
-  //   };
-
-  //   const body = {
-  //     email
-  //   };
-
-  //   return this.http.patch<any>(`${environment.API_BASE_URL}user/recovery_password`, body, httpOptions)
-  //     .pipe(
-  //       map(response => this.jsonConvert.deserializeObject(response, UserPasswordRecovery))
-  //     );
-  // }
 
 }

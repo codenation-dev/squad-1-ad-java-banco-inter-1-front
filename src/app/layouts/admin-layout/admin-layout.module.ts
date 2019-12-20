@@ -8,7 +8,6 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { ToastrModule } from 'ngx-toastr';
 import { AuthGuardService } from '../../guards/access.guard';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
 import { ModalComponent } from 'src/app/modal/modal.component';
@@ -27,7 +26,6 @@ import { ModalComponent } from 'src/app/modal/modal.component';
     DashboardComponent,
     UserProfileComponent,
     ModalComponent
-    // TablesComponent,
   ]
 })
 

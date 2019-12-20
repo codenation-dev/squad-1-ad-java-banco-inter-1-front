@@ -26,10 +26,8 @@ export class DashboardComponent implements OnInit {
  
   last: boolean = false;
 
-  // dashboard$: Observable<LogError[]>;
   dashboard$: Observable<Content>;
   dashboardItem$: Observable<DashBoardItem[]>;
-  // 
 
   constructor(private logErrorService: LogErrorService, private router: Router, private searcService: SearchService, private userService: UserService) {
   }

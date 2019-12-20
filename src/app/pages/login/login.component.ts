@@ -35,12 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
             });
         },
         error => {
-          const message = error
-          // this.toastrService.error(message, 'Ops!', {
-          //   timeOut: 3000
-          // });
-
-          console.log(error.error.message);
           this.messageReturnApi = error.error.message;
         }
       );
@@ -49,7 +43,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   register(){
     this.router.navigateByUrl(this.registerUrl)
         .catch(e => {
-          // this.router.navigate(['']);
           console.log(e);
     });
   }

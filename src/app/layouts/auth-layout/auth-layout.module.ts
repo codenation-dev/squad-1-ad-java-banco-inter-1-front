@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthLayoutRoutes } from './auth-layout.routing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { NgSpinnerModule } from 'ng-bootstrap-spinner';
 
 import { LoginComponent } from '../../pages/login/login.component';
 import { RegisterComponent } from '../../pages/register/register.component';
@@ -13,8 +12,6 @@ import { RegisterComponent } from '../../pages/register/register.component';
     CommonModule,
     RouterModule.forChild(AuthLayoutRoutes),
     FormsModule,
-    // NgSpinnerModule
-    // NgbModule
   ],
   declarations: [
     LoginComponent,

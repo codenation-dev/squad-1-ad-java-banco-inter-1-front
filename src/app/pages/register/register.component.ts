@@ -34,19 +34,6 @@ export class RegisterComponent implements OnInit {
     }else{
       this.fail();
     }
-    // .subscribe(
-    //   (response) => {
-    //     console.log(response)
-    //     this.userCreated = true;
-    //     console.log(this.userCreated)
-    //   },
-    //   error => {
-    //     const message = error
-    //     this.userCreateFail = true;
-    //     this.router.navigate(['/register']);
-    //     console.log(error);
-    //   }
-    // );
   }
 
   private resetNotifications(){

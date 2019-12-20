@@ -54,7 +54,6 @@ export class NavbarComponent implements OnInit {
     await this.userService.logout()
     this.router.navigateByUrl(this.login)
       .catch(e => {
-      // this.router.navigate(['']);
       console.log(e)
     });
   }

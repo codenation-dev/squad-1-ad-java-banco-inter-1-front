@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { JsonConvert } from 'json2typescript';
-import { map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { AuthenticationContextModel, UserModel, AuthModel, LogError } from '../models';
-import { LoginRequest } from '../models/login.request';
+import { UserModel } from '../models';
 import { AuthenticationService } from '../authentication';
-import { RegisterRequest } from '../models/register.request';
 import { UserService } from './user.service';
 import * as faker from 'faker';
 import { LogErrorRequest } from '../models/log.request';
@@ -28,25 +24,25 @@ export class MockService {
     isLogged: false,
     authorization: undefined
   }
-  
+
   constructor(private http: HttpClient,
-              private jsonConvert: JsonConvert,
-              private authenticationService: AuthenticationService,
-              private userService: UserService,
-              private logErrorServices: LogErrorService
-              ) {   
+    private jsonConvert: JsonConvert,
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
+    private logErrorServices: LogErrorService
+  ) {
     this.userModel.name = faker.name.findName()
     this.userModel.email = faker.internet.email();
-    this.userModel.password = environment.PASS_MOCK;               
+    this.userModel.password = environment.PASS_MOCK;
   }
 
-  async queuePopulator(){
+  async queuePopulator() {
     this.registerUser();
     this.login();
-    this.generateLogs(30 , false);
+    this.generateLogs(30, false);
   }
 
-  registerUser(){
+  registerUser() {
     // this.userService.create(this.userModel).subscribe(
     //   (response) => {
     //     console.log(`USUARIO CRIADO COM SUCESSO\n
@@ -64,31 +60,31 @@ export class MockService {
   }
 
   async login() {
-      while(!this.mockUser.isCreated){
-        await this.delay(1000)
-      }
-      this.userService.login(this.userModel.email, this.userModel.password)
-        .subscribe(
-          (response) => {
-            console.log(`USUARIO AUTENTICADO\n
+    while (!this.mockUser.isCreated) {
+      await this.delay(1000)
+    }
+    this.userService.login(this.userModel.email, this.userModel.password)
+      .subscribe(
+        (response) => {
+          console.log(`USUARIO AUTENTICADO\n
             Token de acesso: ${response.authorization}\n
             =======================`)
-            this.mockUser.authorization = response.authorization; 
-            this.mockUser.isLogged = true;
-          },
-          error => {
-            this.fail = true
-            console.log(error);
-          }
+          this.mockUser.authorization = response.authorization;
+          this.mockUser.isLogged = true;
+        },
+        error => {
+          this.fail = true
+          console.log(error);
+        }
       );
   }
 
-  async generateLogs(size: number, globalMock: boolean){
-    while(!globalMock && !this.mockUser.isLogged){
+  async generateLogs(size: number, globalMock: boolean) {
+    while (!globalMock && !this.mockUser.isLogged) {
       await this.delay(1000)
     }
 
-    for(var i = 0; i < size; i++){
+    for (var i = 0; i < size; i++) {
 
       const logError = new LogErrorRequest(
         this.getTitle(),
@@ -113,19 +109,19 @@ export class MockService {
     }
   }
 
-  private getRandoKey(size: number){
+  private getRandoKey(size: number) {
     return Math.floor((Math.random() * size) + 1);
   }
 
-  private getTitle(){
+  private getTitle() {
     return faker.random.word()
   }
 
-  private getDetails(){
+  private getDetails() {
     return faker.random.words(10)
   }
 
-  private getEnvironment(){
+  private getEnvironment() {
     const map = new Map<number, string>()
     map.set(1, 'DEV')
     map.set(2, 'HML')
@@ -133,7 +129,7 @@ export class MockService {
     return map.get(this.getRandoKey(map.size));
   }
 
-  private getErrorLevel(){
+  private getErrorLevel() {
     const map = new Map<number, string>()
     map.set(1, 'ERROR')
     map.set(2, 'WARNING')
@@ -148,70 +144,5 @@ export class MockService {
       }, ms);
     });
   }
-
-  // patch(form: FormData): Observable<UserModel> {
-
-  //   const authContext = this.authenticationService.getAuthenticationContext();
-
-  //   if (!authContext) {
-  //     return null;
-  //   }
-
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       client: authContext.client,
-  //       uid: authContext.uid,
-  //       'access-token': authContext.accessToken
-  //     }),
-  //     observe: 'response'
-  //   };
-
-  //   // @ts-ignore
-  //   return this.http.patch<any>(environment.API_BASE_URL + 'user', form, httpOptions)
-  //     .pipe(map(response => {
-  //       return this.jsonConvert.deserializeObject(response, UserModel);
-  //     }));
-  // }
-
-  // details(): Observable<UserModel> {
-
-  //   const authContext = this.authenticationService.getAuthenticationContext();
-
-  //   if (!authContext) {
-  //     return null;
-  //   }
-
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //       client: authContext.client,
-  //       uid: authContext.uid,
-  //       'access-token': authContext.accessToken
-  //     }),
-  //   };
-
-  //   return this.http.get<any>(`${environment.API_BASE_URL}user`, httpOptions)
-  //     .pipe(
-  //       map(response => this.jsonConvert.deserializeObject(response, UserModel))
-  //     );
-  // }
-
-  // recoveryPassword(email: string): Observable<UserPasswordRecovery> {
-
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'Content-Type': 'application/json',
-  //     }),
-  //   };
-
-  //   const body = {
-  //     email
-  //   };
-
-  //   return this.http.patch<any>(`${environment.API_BASE_URL}user/recovery_password`, body, httpOptions)
-  //     .pipe(
-  //       map(response => this.jsonConvert.deserializeObject(response, UserPasswordRecovery))
-  //     );
-  // }
 
 }
